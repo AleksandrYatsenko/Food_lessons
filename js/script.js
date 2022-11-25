@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ----------------------- Timer ------------------------------
 
-  const deadline = '2022-11-25';
+  const deadline = '2022-12-25';
 
   function getTimeRemaining(endtime) {
     const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -83,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if(t.total <= 0) {
         clearInterval(timeInterval);
+        days.innerHTML = "00";
+        hours.innerHTML = "00";
+        minutes.innerHTML = "00";
+        seconds.innerHTML = "00";
       }
     }
   }
@@ -143,5 +147,46 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('scroll', showModalByScroll);
+
+  // ----------- Classes ------------------------
+
+  class Card {
+    constructor (img, alt, title, text, price, parentSelect, ...classes) {
+      this.img = img;
+      this.alt = alt;
+      this.title = title;
+      this.text = text;
+      this.price = price;
+      this.parent = document.querySelector(parentSelect);
+      this.classes = classes;
+    }
+    makeCard() {
+      const element = document.createElement('div');
+      if(this.classes.length === 0) {
+        this.classes = "menu__item";
+        element.classList.add(this.classes);
+      } else {
+        this.classes.forEach(className => element.classList.add(className));
+      }
+      
+      element.innerHTML =`
+        <img src=${this.img} alt=${this.alt}>
+        <h3 class="menu__item-subtitle">Меню "${this.title}"</h3>
+        <div class="menu__item-descr">${this.text}</div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+          <div class="menu__item-cost">Цена:</div>
+          <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+        </div>
+      `;
+      this.parent.append(element);
+    }
+  }
+
+  new Card("img/tabs/vegy.jpg", "vegy", "Фитнес", "Меню “Фитнес” - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!", "229", ".menu .container").makeCard();
+
+  new Card("img/tabs/elite.jpg", "elite", "Премиум", "В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!", "550", ".menu .container").makeCard();
+
+  new Card("img/tabs/post.jpg", "post", "Постное", "Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.", "430", ".menu .container").makeCard();
 
 });
