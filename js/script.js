@@ -255,11 +255,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const formData = new FormData(form);
 
-      // не надо для fetch:
-      // const object = {};
-      // formData.forEach((value, key) => {
-      //   object[key] = value;
-      // });
+      // не надо для fetch c formData, но надо при работе с JSON:
+      const object = {};
+      formData.forEach((value, key) => {
+        object[key] = value;
+      });
       // const json = JSON.stringify(object);
       
       // не надо для fetch:
@@ -267,10 +267,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       fetch('server.php', {
         method: "POST",
-        // headers: {
-        //   'Content-type': 'application/json'
-        // },
-        body: formData
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(object)
       })
       .then(data => data.text())
       .then(data => {
