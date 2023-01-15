@@ -208,6 +208,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     });
 
+  // --------- with AXIOS liblary and class-------------
+  // axios.get('http://localhost:3000/menu')
+  //   .then(data => {
+  //     data.data.forEach(({img, altimg, title, descr, price}) => {
+  //       new Card(img, altimg, title, descr, price, '.menu .container').makeCard();
+  //     })
+  //   });
+  // -----------Axios /\ ----------------
   
   // --------- without Classes ----------
   // getResouce('http://localhost:3000/menu')
@@ -369,9 +377,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 4000);
   }
 
-  fetch('http://localhost:3000/menu')
-    .then(data => data.json())
-    .then(res => console.log(res));
+  // fetch('http://localhost:3000/menu')
+  //   .then(data => data.json())
+  //   .then(res => console.log(res));
 
 
 });
